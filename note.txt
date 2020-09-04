@@ -19,3 +19,9 @@
  	-template
  	-script
  	-style
+
+
+ +>UI
+ 	bootstrap-vue(npm install vue bootstrap-vue bootstrap)
+
+ 	vue-router(npm install vue-router)
