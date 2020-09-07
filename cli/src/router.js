@@ -2,8 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-import Testing from '@/components/Testing.vue'
-import Exercise from '@/components/Exercise.vue'
+import Testing from '@/views/Testing.vue'
+import Exercise from '@/views/Exercise.vue'
+import Home from '@/views/HelloWorld.vue'
+import Detail from '@/views/Detail.vue'
 const router=new VueRouter({
 	routes: [
 	{
@@ -13,8 +15,17 @@ const router=new VueRouter({
 	{
 	path: '/exercise',
 	component:Exercise
+	},
+	{
+		path:'/detail/:id',
+		name:'detail',
+		component:Detail
+	},
+	{
+		path:'/',
+		component:Home
 	}
 	],
-	mode:'abstract' //abstract or history
+	mode:'history' //abstract or history
 });
 export default router
