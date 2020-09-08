@@ -22,8 +22,7 @@
 							<td>{{item.name}}</td>
 							<td>{{item.price}}</td>
 							<td>
-								<button class="btn btn-sm px-2 btn-outline-danger" @click="addCart(item.id)">+</button>{{item.qty}}
-								<button class="btn btn-sm px-2 btn-outline-danger"  @click="reduceCart(item.id)">-</button>
+								<button class="btn btn-sm px-2 btn-outline-danger" @click="addCart(item.id)">+</button> <input type="number" :value=item.qty class="form-control w-25 d-inline-block" v-if="item.qty>=0">							<button class="btn btn-sm px-2 btn-outline-danger"  @click="reduceCart(item.id)">-</button>
 
 								<button @click="removeFromCart(item.id)" class="btn btn-sm btn-danger mx-2">Remove</button>
 								</td>

@@ -33,9 +33,11 @@ const store = new Vuex.Store({
   	},
   	reduceCart(state,payload){
   		let indexToReduce=state.cart.find(item=>item.id==payload)
-  		if(indexToReduce){
+  		
+  			
   		indexToReduce.qty-=1;
-  	}
+  	
+  	
   	},
 
   	getData(state){
