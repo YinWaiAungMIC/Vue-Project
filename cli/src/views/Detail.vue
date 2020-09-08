@@ -1,28 +1,31 @@
 <template>
-	<div class="bbb_deals_featured">
-    <div class="container">
-    	<h1><center>Product Detail</center></h1>
+   
+	<!-- <div class="bbb_deals_featured d"> -->
+    <div class="container d">
+    	<h1 style="color: #42f542;"><center>Product Detail</center></h1>
 
-        <div class="row my-4" >
-            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center">
+        <div class="row my-4 d" >
+            <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center d">
                 <!-- bbb_deals -->
-                <div class="bbb_deals">
-                    <div class="ribbon ribbon-top-right"><span>{{item.item_discount}}% OFF</span></div>
-                    <div class="bbb_deals_title">{{item.item_desc}}</div>
-                    <div class="bbb_deals_slider_container">
+                <div class="bbb_deals d">
+                    <div class="ribbon ribbon-top-right d"><span>{{item.item_discount}}% OFF</span></div>
+                    <div class="bbb_deals_title d">{{item.item_desc}}</div>
+                    <div class="bbb_deals_slider_container d">
                         <!-- bbb_deals Item -->
-                        <div class=" bbb_deals_item">
-                            <div class="bbb_deals_image"><img :src="item.item_photo" alt=""></div>
-                            <div class="bbb_deals_content">
+                        <div class=" bbb_deals_item d">
+                            <div class="bbb_deals_image d"><img :src="item.item_photo" alt=""></div>
+                            <div class="bbb_deals_content d">
                                 
-                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                                    <div class="bbb_deals_item_name">{{item.item_name}}</div>
-                                    <div class="bbb_deals_item_price ml-auto">{{item.item_price}} MMK</div>
+                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start d">
+                                    <div class="bbb_deals_item_name d">{{item.item_name}}</div>
+                                    <div class="bbb_deals_item_price ml-auto d">{{item.item_price}} MMK</div>
                                 </div>
 
-                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start my-3">
-                                    <div class="bbb_deals_item_name"><button class="btn btn-success">Add to Cart</button></div>
-                                    <div class="bbb_deals_item_price ml-auto"><button class="btn btn-warning">CheckOut</button></div>
+                                <div class="bbb_deals_info_line d-flex flex-row justify-content-start my-3 d">
+                                    <div class="bbb_deals_item_name d">
+                                        <input type="number" name="qty" v-model="qty" class="form-control w-25 d-inline-block" min="1">
+                                    </div>
+                                    <div class="bbb_deals_item_price ml-auto d"><button class="btn btn-success" @click="addToCart()">Add to Cart</button></div>
                                 </div>
                                 
                             </div>
@@ -32,7 +35,7 @@
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 
 
 </template>
@@ -43,13 +46,19 @@
 	export default{
 		data (){
 			return{
-				item: Object
+                qty:1,
+				item: {}
 			}
 		},
 		mounted(){
 			this.getDetail();
 		},
 		methods:{
+            addToCart(){
+                let item={id:this.item.item_id,name:this.item.item_name,price:this.item.item_price,qty:this.qty};
+
+                this.$store.dispatch('addToCart',item)
+            },
 			getDetail(){
 				let id=this.$route.params.id;
 				ItemService.getItem(id)
@@ -66,7 +75,7 @@
 
 <style type="text/css">
 
-	div {
+	.d {
     display: block;
     position: relative;
     -webkit-box-sizing: border-box;
@@ -132,8 +141,8 @@
 }
 
 .container {
-    margin-top: 100px;
-    margin-bottom: 100px
+    margin-top: 20px;
+    margin-bottom: 20px
 }
 
 .bbb_deals_featured {
@@ -204,29 +213,8 @@
     color: #df3b3b
 }
 
-.available {
-    margin-top: 19px
-}
 
-.available_title {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 400
-}
 
-.available_title span {
-    font-weight: 700
-}
-
-.sold_title {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.5);
-    font-weight: 400
-}
-
-.sold_title span {
-    font-weight: 700
-}
 
 @media only screen and (max-width: 1199px) {
     .bbb_deals_timer_box {

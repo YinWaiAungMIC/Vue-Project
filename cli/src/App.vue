@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
      <div class="container"> 
   <router-link class="navbar-brand" to="/"><img src="./assets/logo.png" width="30" height="30" alt="" loading="lazy"></router-link>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,10 @@
       </li>
       <li class="nav-item">
         <router-link class="nav-link" to="/exercise">Exercise</router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="/cart">Cart
+          <span class="badge badge-danger" v-if="cartCount>0">{{cartCount}}</span></router-link>
       </li>
     </ul>  
   </div>
@@ -41,6 +45,13 @@ export default {
   name: 'App',
   mounted(){
    // this.$router.replace('/testing')
+  },
+  computed:{
+    cartCount(){
+      this.$store.dispatch('getData')
+      return this.$store.state.cart.length
+
+    }
   }
 }
 </script>
