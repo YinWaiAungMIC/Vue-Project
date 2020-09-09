@@ -7,6 +7,7 @@ import Exercise from '@/views/Exercise.vue'
 import Home from '@/views/HelloWorld.vue'
 import Detail from '@/views/Detail.vue'
 import ShoppingCart from '@/views/ShoppingCart.vue'
+import OrderList from '@/views/OrderList.vue'
 const router=new VueRouter({
 	routes: [
 	{
@@ -30,6 +31,11 @@ const router=new VueRouter({
 		path:'/cart',
 		name:'cart',
 		component:ShoppingCart
+	},
+	{
+		path:'/orders',
+		name:'order',
+		component:OrderList
 	}
 	],
 	mode:'history' //abstract or history

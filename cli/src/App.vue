@@ -22,6 +22,10 @@
         <router-link class="nav-link" to="/cart">Cart
           <span class="badge badge-danger" v-if="cartCount>0">{{cartCount}}</span></router-link>
       </li>
+
+      <li class="nav-item">
+        <router-link class="nav-link" to='/orders'>Order</router-link>
+      </li>
     </ul>  
   </div>
   </div>
@@ -52,6 +56,7 @@ export default {
       return this.$store.state.cart.length
 
     }
+    
   }
 }
 </script>

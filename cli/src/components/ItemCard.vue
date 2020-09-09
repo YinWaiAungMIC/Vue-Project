@@ -1,13 +1,13 @@
 <template>
-	<div class="card bg-light" style="width:200px">
+	<div class="card bg-light" style="width:230px">
 		<img :src="item.item_photo" class="card-img-top" alt="Card image" style="width:100%;height: 150px">
 		<div class="card-body">
 			<div class="card-title">{{item.item_name}}</div>
 		</div>
 		
 		<div class="card-footer">
-			<router-link class="btn btn-success" :to="{name:'detail',params:{id:item.item_id}}">Detail</router-link>
-			<button class="btn btn-info ml-3" @click="addToCart()">Add to Cart</button>
+			<router-link class="btn btn-success det" :to="{name:'detail',params:{id:item.item_id}}" ml-3>Detail</router-link>
+			<button class="btn btn-info " @click="addToCart()" add>Add to Cart</button>
 		</div>
 	</div>
 </template>
@@ -28,3 +28,14 @@
 		}
 	}
 </script>
+
+<style type="text/css">
+	.det{
+		float: left;
+
+
+	}
+	.add{
+		float: right;
+	}
+</style>

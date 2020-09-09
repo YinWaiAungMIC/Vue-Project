@@ -23,9 +23,9 @@
 
                                 <div class="bbb_deals_info_line d-flex flex-row justify-content-start my-3 d">
                                     <div class="bbb_deals_item_name d">
-                                        <input type="number" name="qty" v-model="qty" class="form-control w-25 d-inline-block" min="1">
+                                        <input type="number" name="qty" v-model="qty" class="form-control w-25 d-inline-block" min="1" style="float: left;">
                                     </div>
-                                    <div class="bbb_deals_item_price ml-auto d"><button class="btn btn-success" @click="addToCart()">Add to Cart</button></div>
+                                    <div class="bbb_deals_item_price ml-auto d"><button class="btn btn-success" @click="addToCart()" style="float: right;">Add to Cart</button></div>
                                 </div>
                                 
                             </div>
