@@ -1,37 +1,61 @@
+
+
 <template>
-	
-	<div>
-		
-		<div class="row">
-				<div v-for="currency in info" :key="currency.order_id" class="col-md-4">
-					<table class="table table-bordered bg-light">
-			<tr><td colspan="2" class="text-danger">Order List</td></tr>
-			<tr><td>Voucher No:</td><td>{{currency.order_voucherno}}</td></tr>
-			<tr><td>Total:</td><td>{{currency.order_total}}</td></tr>
-			<tr><td>User Name:</td><td>{{currency.order_user.user_name}}</td></tr>
-			<tr><td></td><td><button class="btn btn-primary">Detail</button></td></tr>
-			
-					</table>
-			</div>
-		</div>
-			
-</div>
+  <div class="container">
+    <div class="row my-3">
+      <div class="col-md-12">
+        <h2>Order List</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12" >
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Voucherno</th>
+              <th>Customer</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <OrderRow v-for="(order,index) in orders" :key="index" :order="order"></OrderRow>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script type="text/javascript">
-	import axios from 'axios'
-	export default{
-		data (){
-			return{
-                info: Object
-			}
-		},
-		mounted(){
-			axios.get('http://osapi.thetpainghtut.com/api/v1/orders')
-					 .then(res=>{
-					 	this.info=res.data.orders;
-					 })
-		}
-	}
-	
+  import OrderRow from '@/components/OrderRow.vue'
+  import ItemService from '@/services/ItemService.js'
+  export default{
+    components:{
+      OrderRow
+    },
+    data(){
+      return{
+        orders : []
+      }
+    },
+    created(){
+      ItemService.getOrders()
+        .then(response => {
+          this.orders = response.data.orders
+        })
+        .catch(error => {
+          console.log('There was an error:',error.response)
+        })
+    }
+  }
 </script>
+
+<style type="text/css">
+  
+</style>
+
+   
+

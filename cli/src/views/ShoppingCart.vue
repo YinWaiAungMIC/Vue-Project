@@ -22,7 +22,7 @@
 						<tr v-for="(item,index) in cart" :key="index">
 							<td>{{++index}}</td>
 							<td>{{item.name}}</td>
-							<td>{{formattingNumber(item.price)}}</td>
+							<td>{{item.price}}</td>
 							<td>
 								<button class="btn btn-sm px-2 btn-outline-danger" @click="addCart(item.id)">+</button> <input type="number" :value=item.qty class="form-control w-25 d-inline-block">							<button class="btn btn-sm px-2 btn-outline-danger"  @click="reduceCart(item.id)">-</button>
 

@@ -23,9 +23,23 @@
           <span class="badge badge-danger" v-if="cartCount>0">{{cartCount}}</span></router-link>
       </li>
 
-      <li class="nav-item">
-        <router-link class="nav-link" to='/orders'>Order</router-link>
-      </li>
+      <span v-if="isLoggedIn" style="display: inherit;">
+            <li class="nav-item">
+              <router-link :to="{name:'order-list'}" class="nav-link mr-2">Order List</router-link>
+            </li>
+            <li class="nav-item">
+              <a @click="logout()" class="nav-link mr-2 text-danger" style="cursor: pointer;">Logout</a>
+            </li>
+          </span>
+          <span v-else style="display: inherit;">
+            <li class="nav-item">
+              <router-link :to="{name:'register'}" class="nav-link mr-2">Register</router-link>
+            </li>
+
+            <li class="nav-item">
+              <router-link :to="{name:'login'}" class="nav-link mr-2">Login</router-link>
+            </li>
+</span>
     </ul>  
   </div>
   </div>
@@ -47,15 +61,21 @@
 
 export default {
   name: 'App',
-  mounted(){
-   // this.$router.replace('/testing')
-  },
+  methods:{
+      logout(){
+        this.$store.dispatch('logout')
+        this.$router.push('/')
+      }
+    },
   computed:{
     cartCount(){
       this.$store.dispatch('getData')
       return this.$store.state.cart.length
 
-    }
+    },
+      isLoggedIn() { 
+        return this.$store.getters.isLoggedIn
+      }
     
   }
 }

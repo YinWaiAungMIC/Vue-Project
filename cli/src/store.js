@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    cart: []
+    cart: [],
+    token: null,
+    authStatus: '',
   },
   mutations: {
   	addToCart(state,payload){
@@ -48,7 +51,19 @@ const store = new Vuex.Store({
   			state.cart=[];
   		}
 
-  	}
+  	},
+    auth_success(state,token){
+      state.authStatus = 'success'
+      localStorage.setItem('token',token)
+      state.token = token
+    },
+    auth_fail(state){
+      state.authStatus = 'fail'
+    },
+    logout(state){
+      localStorage.removeItem('token')
+      state.token=null
+}
     
   },
   actions:{
@@ -73,10 +88,54 @@ const store = new Vuex.Store({
   	getData({commit}){
   		commit('getData')
 
-  	}
+  	},
+
+    login({commit,dispatch},user){
+      return new Promise((resolve, reject) => {
+          commit('auth_request');
+          let data = {
+              client_id: 2,
+              client_secret: 'PPSENHFBsgndexrv5ynlMNnKP7soTjFUFt3VCr1h',
+              grant_type: 'password',
+              username: user.username,
+              password: user.password
+          };
+          axios.post('http://127.0.0.1:8000/oauth/token', data)
+              .then(res => {
+                  const token = res.data.access_token;
+                  localStorage.setItem('token', token);
+
+                  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+                  commit('auth_success', token);
+                  dispatch('getUser');
+                  resolve(res);
+              })
+              .catch(err => {
+                  commit('auth_fail');
+                  localStorage.removeItem('token');
+                  reject(err);
+              });
+      });
+},
+    loginSuccess({commit},token){
+      commit('auth_success',token)
+    },
+    loginFail({commit}){
+      commit('auth_fail')
+    },
+    logout({commit}){
+      commit('logout')
+}
 
   },
   getters:{
+    isLoggedIn(state){
+      return state.token
+    },
+    authStatus(state){
+      return state.authStatus
+} 
 
   }
 })
